@@ -1,0 +1,23 @@
+.order-summary-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-summary-item:last-child {
+  border-bottom: none;
+}
+
+.order-summary-image {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.order-summary-details {
+  flex-grow: 1;
+}

@@ -1,0 +1,92 @@
+.order-summary-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-summary-item:last-child {
+  border-bottom: none;
+}
+
+.order-summary-image {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.order-summary-details {
+  flex-grow: 1;
+}
+
+.checkout-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.checkout-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.step-number.active {
+  background-color: #8bc34a;
+  color: white;
+}
+
+.step-number.completed {
+  background-color: #8bc34a;
+  color: white;
+}
+
+.step-label {
+  font-size: 0.875rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.step-label.active {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.steps-connector {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e2e8f0;
+  z-index: 0;
+}
+
+.steps-progress {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  height: 2px;
+  background-color: #8bc34a;
+  z-index: 0;
+  transition: width 0.3s ease;
+}
