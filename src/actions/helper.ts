@@ -9,7 +9,7 @@ export const getCookieConfig = () => ({
     httpOnly: true,
     sameSite: "strict" as const,
     domain: process.env.NODE_ENV === "production" ?
-        domainName
+        ".pranaair.com"
         : undefined,
     expires: getCookieLife(),
     secure: process.env.NODE_ENV === "production",

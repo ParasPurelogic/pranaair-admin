@@ -1,6 +1,10 @@
 import "@/app/globals.css";
-import Script from "next/script";
 import { Nunito_Sans } from "next/font/google";
+import "./globals.css";
+import { siteName } from "@/config";
+import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
+import theme from "@/theme";
 
 const primaryFont = Nunito_Sans({
   subsets: ["latin"],
@@ -43,9 +47,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-import "./globals.css";
-import { siteName } from "@/config";
-import { Toaster } from "sonner";
-import NextTopLoader from "nextjs-toploader";
-import theme from "@/theme";

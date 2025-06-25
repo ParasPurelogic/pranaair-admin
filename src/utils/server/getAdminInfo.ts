@@ -7,14 +7,14 @@ import { AdminInfo } from "@/types";
 import { J_S } from "@/actions/helper";
 
 const getAdminInfo = cache(
-    async (): Promise<AdminInfo | undefined> => {
+    async (): Promise<AdminInfo | null> => {
         try {
             // 1 — Grab the raw cookie
             const token = (await cookies())
                 ?.get(conventions.cookie.adminInfo)
                 ?.value;
 
-            if (!token) return undefined;
+            if (!token) return null;
 
             // 2 — Verify signature *and* standard claims
             const { payload } = await jwtVerify<AdminInfo>(
@@ -28,7 +28,7 @@ const getAdminInfo = cache(
             // 3 — At this point the token is authentic & unexpired.
             return payload;
         } catch (error) {
-            return undefined;
+            return null;
         }
     },
 );
