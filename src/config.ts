@@ -1,6 +1,6 @@
 export const siteName = "Prana Air Admin"
 
-export const domainName = "http://localhost:3000"
+export const domainName = process.env.NODE_ENV === "production" ? "https://dash.pranaair.com" : "http://localhost:3000"
 
 export const conventions = {
     cookie: {
