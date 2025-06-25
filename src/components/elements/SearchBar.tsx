@@ -2,7 +2,7 @@
 
 import theme from "@/theme";
 import cn from "@/utils/cn";
-import debouncer from "@/utility/debouncer";
+import debouncer from "@/utils/debouncer";
 import { useCallback } from "react";
 
 type Props = {
