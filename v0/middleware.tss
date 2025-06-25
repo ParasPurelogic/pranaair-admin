@@ -1,0 +1,96 @@
+// import { NextResponse } from 'next/server'
+// import type { NextRequest } from 'next/server'
+// import { isPublicPath as CheckIfPathIsPublicPath } from '@/utility';
+// import { routes } from './config/routes';
+// import { conventions } from './config/conventions';
+// import { domainName, getCurrentTime, isCNServer, isSiteLive, supportedLanguages } from './config/misc';
+// import { createI18nMiddleware } from 'next-international/middleware'
+// import { getUserInfo } from './utility/server';
+
+// const I18nMiddleware = createI18nMiddleware({
+//     locales: supportedLanguages.map(l => l.id),
+//     defaultLocale: supportedLanguages[isCNServer ? 2 : 0].id,
+//     urlMappingStrategy: "rewrite",
+//     resolveLocaleFromRequest: (request) => {
+//         return supportedLanguages[isCNServer ? 2 : 0].id
+//     }
+// })
+
+// export async function middleware(request: NextRequest) {
+
+//     // Read the requested pathname
+//     const pathName = request.nextUrl.pathname;
+
+//     // Log necessary headers
+//     if (isSiteLive) {
+//         console.log({
+//             ip: request?.headers?.get?.('x-forwarded-for') ?? request?.headers?.get?.("x-real-ip") ?? "N/A",
+//             url: request.url,
+//             referer: request.headers.get("Referer"),
+//             userAgent: request.headers.get("User-Agent"),
+//             time: getCurrentTime(),
+//         })
+//     }
+
+//     // If pathname starts with "/extras", pass
+//     if (pathName?.includes(routes.extras.parent.pathName)) {
+//         return I18nMiddleware(request)
+//     }
+
+//     // Authenticate user via access token cookie
+//     let userAuth = getUserInfo();
+
+//     // Check if the requested path is a public path or not
+//     const isPublicPath = CheckIfPathIsPublicPath(pathName);
+
+//     // If user is authenticated and accessing a public path and request does not have "next-action" header and does not have a "oAuth" search param, redirect to "dashboard" page
+//     if (
+//         isPublicPath &&
+//         userAuth?.token &&
+//         !request.headers.get("next-action") &&
+//         !request.nextUrl.searchParams.get(conventions.routes.oAuthParam)
+//     ) {
+//         return NextResponse.redirect(new URL(routes.dashboard.parent.url, request.url));
+//     }
+
+//     // If user is not authenticated and accessing a private path, redirect to "login" page
+//     if (!isPublicPath && !userAuth?.token) {
+//         // Encode the requested path
+//         const requestedPath = `${domainName}${pathName}`;
+//         // Redirect to login page with search parameters
+//         const redirectTo = `${routes.auth.login.url}?${conventions.routes.loginFromParam}=${encodeURIComponent(requestedPath)}`;
+//         // Redirect to login page
+//         return NextResponse.redirect(new URL(redirectTo, request.url));
+//     }
+
+//     // If user has a passkey, and pathname is not /checkout or /auth, redirect to /personalized
+//     if (
+//         userAuth?.passKey &&
+//         !pathName.includes(routes.personalized.parent.pathName) &&
+//         !pathName?.endsWith(routes.checkout.parent.pathName) &&
+//         !pathName?.endsWith(routes.auth.parent.pathName)
+
+//     ) {
+//         // Redirect to personalized path
+//         return NextResponse.redirect(new URL(routes.personalized[userAuth.passKey].url, request.url));
+//     }
+
+//     // If user doesn't have passKey but trying to access the /personalized
+//     if (
+//         !userAuth?.passKey &&
+//         pathName.includes(routes.personalized.parent.pathName + "/")
+//     ) {
+//         // Redirect to dashboard
+//         return NextResponse.redirect(new URL(routes.dashboard.parent.url, request.url));
+//     }
+
+//     // Have a response
+//     const response = I18nMiddleware(request);
+
+//     // If no condition matches
+//     return response;
+// }
+
+// export const config = {
+//     matcher: '/((?!api|scripts|_next/static|media|_next/image|favicon.ico|favicons|robots.txt|sw.*\\.js|workbox-.*\\.js|manifest.json).*)',
+// };
