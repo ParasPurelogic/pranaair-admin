@@ -47,8 +47,6 @@ const logMeIn = async (args: Args): Promise<TypeAction> => {
         const cookie = await cookies();
 
         // Sign a JWT token
-        // Generate JWT
-        const secret = J_S
         // JWT Algo
         const alg = 'HS256'
         // Sign JWT
@@ -56,7 +54,7 @@ const logMeIn = async (args: Args): Promise<TypeAction> => {
             .setProtectedHeader({ alg })
             .setIssuedAt()
             .setExpirationTime('1d')
-            .sign(secret)
+            .sign(J_S)
 
         // Set the token in Cookie
         cookie.set(
