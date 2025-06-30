@@ -1,7 +1,7 @@
 import "@/app/globals.css";
-import "./globals.css";
 import { AdminInfoProvider } from "@/contexts/AdminInfo";
 import getAdminInfo from "@/utils/server/getAdminInfo";
+import Sidebar from "./_Sidebar";
 
 export default async function Layout({
   children,
@@ -13,13 +13,15 @@ export default async function Layout({
 
   // Render
   return (
-    <div className="admin-area">
+    <div className="admin-area grid md:grid-cols-[auto_1fr] [&_>_*]:min-w-0 w-full h-full">
       <AdminInfoProvider adminInfo={adminInfo}>
         {/* Sidebar */}
-        <div className="sidebar"></div>
+        <Sidebar />
 
         {/* Page */}
-        <div className="">{children}</div>
+        <div className="p-[var(--padding)] [--padding:var(--spacing-body)] sm:[--padding:2rem] w-full h-full overflow-y-auto">
+          <div className="min-h-fit">{children}</div>
+        </div>
       </AdminInfoProvider>
     </div>
   );

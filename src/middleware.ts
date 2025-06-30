@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
     // If user is authenticated and accessing a public path and request does not have a "next-action" header, redirect to "home" page
     if (isPublicPath && adminInfo?.token) {
-        return NextResponse.redirect(new URL(routes.home.url, request.url));
+        return NextResponse.redirect(new URL(routes.dashboard.url, request.url));
     }
 
     // If user is not authenticated and accessing a private path, redirect to "login" page

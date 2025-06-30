@@ -1,5 +1,4 @@
 import cn from "@/utils/cn";
-import IconLoader from "./IconLoader";
 
 type Props = {
   className?: string;
@@ -17,7 +16,7 @@ const ShowLoader = (props: Props) => {
         props.className
       )}
     >
-      <IconLoader className="text-[4rem] text-para" />
+      {/* <IconLoader className="text-[4rem] text-para" /> */}
     </div>
   );
 };

@@ -1,10 +1,16 @@
 "use client";
 
 import logMeIn from "@/actions/logMeIn";
-import Button from "@/components/elements/Button";
-import InputEmail from "@/components/elements/InputEmail";
-import InputPassword from "@/components/elements/InputPassword";
-import IconLoader from "@/components/IconLoader";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { regexChecks, routes } from "@/config";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -12,14 +18,7 @@ import { toast } from "sonner";
 
 const Index = () => {
   // React Hook Form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setValue,
-    setError,
-    clearErrors,
-  } = useForm();
+  const form = useForm<{ email: string; password: string }>();
 
   // Router
   const router = useRouter();
@@ -46,7 +45,7 @@ const Index = () => {
       toast.success(loginStatus.message ?? "Login successfully.");
 
       // Redirect admin to home
-      router.replace(routes.home.url);
+      router.replace(routes.dashboard.url);
       //
     } catch (error: any) {
       // Display error message
@@ -57,11 +56,11 @@ const Index = () => {
       // If error for email/pass inputs
       if (error.message?.toLowerCase()?.includes("wrong")) {
         // Set errors for email and password fields
-        setError("email", {
+        form.setError("email", {
           type: "serverError",
           message: "Please check your email.",
         });
-        setError("password", {
+        form.setError("password", {
           type: "serverError",
           message: "Please check your password.",
         });
@@ -72,78 +71,67 @@ const Index = () => {
   // Return JSX
   return (
     <div className="login bg-white h-dvh w-full flex flex-col items-center justify-center p-body">
-      <div className="wrapper p-body border border-primary rounded-[2rem] mx-auto max-sm:w-full min-w-fit">
+      <div className="wrapper p-body border border-primary rounded-[1rem] w-full md:max-w-[30rem]">
         {/* Logo */}
         <h1 className="text-[3rem] text-title uppercase mb-[3rem] font-bold">
           Please Login
         </h1>
 
         {/* Form */}
-        <div className="form w-full sm:w-[50rem]">
+        <Form {...form}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
-            method="POST"
-            className="login-form flex flex-col w-full"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="!w-full flex flex-col gap-body"
           >
-            {/* Input Fields  */}
-            <div className="fields flex flex-col gap-[3.5rem]">
-              {/* Email */}
-              <div className="email space-y-[1rem]">
-                <InputEmail
-                  required
-                  errorMessage={`${errors.email?.message || ""}`}
-                  placeholder="Enter your email"
-                  disabled={isSubmitting}
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: regexChecks.email,
-                      message: "Enter valid email id",
-                    },
-                    minLength: {
-                      value: 10,
-                      message: "Email must be at least 10 characters long",
-                    },
-                  })}
-                  onChange={(e) => {
-                    setValue("email", e.target.value);
-                    if (errors.email) clearErrors("email");
-                  }}
-                />
-              </div>
-
-              {/* Password */}
-              <div className="password space-y-[1rem]">
-                <InputPassword
-                  required
-                  errorMessage={`${errors.password?.message || ""}`}
-                  placeholder="Enter your password"
-                  disabled={isSubmitting}
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters long.",
-                    },
-                  })}
-                  onChange={(e) => {
-                    setValue("password", e.target.value);
-                    if (errors.password) clearErrors("password");
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Submit button  */}
+            <FormField
+              control={form.control}
+              name="email"
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: regexChecks.email,
+                  message: "Enter valid email id",
+                },
+              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input required placeholder="Email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              rules={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long.",
+                },
+              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input required placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full mt-[4rem]"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
             >
-              {isSubmitting ? <IconLoader /> : "Login"}
+              Submit
             </Button>
           </form>
-        </div>
+        </Form>
       </div>
     </div>
   );

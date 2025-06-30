@@ -28,19 +28,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${primaryFont.className} ${theme.misc.rootFontSizes}`}
+      className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[17px] [--body-padding:1rem] sm:[--body-padding:1.5rem] lg:[--body-padding:2rem]"
       style={{
         // @ts-expect-error type
         "--color-primary": theme.primaryColor,
       }}
     >
-      <body className={`${theme.misc.bodyClasses}`}>
-        <main>{children}</main>
+      <body className="text-[1rem]">
+        <main className="w-full min-h-full">{children}</main>
         <Toaster richColors position="top-right" />
         <NextTopLoader
           zIndex={9999999999}
           color="var(--color-primary)"
-          height={3}
+          height={6}
           showSpinner={false}
         />
       </body>

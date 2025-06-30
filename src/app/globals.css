@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
   --color-primary: var(--primary-color, #4FC667);
@@ -6,7 +7,7 @@
   --color-title: #31343D;
   --color-error: #f96d6d;
   --color-success: #4FC667;
-  --color-body_bg: white;
+  --color-body_bg: #f9fafb;
   --spacing-body: var(--body-padding);
   --spacing-page-content-width: calc(100vw - var(--body-padding));
   --scrollbarWidth: 10px;
@@ -14,6 +15,86 @@
   --scrollbarTrackColor: rgb(240, 240, 240);
   --scrollbarThumbColor: rgba(0, 0, 0, 0.1);
   --scrollbarThumbHoverColor: rgba(0, 0, 0, 0.3);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 main {
@@ -31,6 +112,10 @@ main {
   animation: shimmer 1.5s infinite;
 }
 
+* {
+  border-color: rgb(234, 234, 234)
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -41,20 +126,8 @@ main {
   }
 }
 
-.dark {
-  --scrollbarTrackColor: rgba(39, 36, 36, 0.3);
-  --scrollbarThumbColor: rgb(240, 240, 240, 0.1);
-  --scrollbarThumbHoverColor: rgb(240, 240, 240, 0.4);
-}
-
 body {
   scroll-behavior: smooth;
-}
-
-/* Popup */
-.glb-popup-fit-height {
-  max-height: calc(100vh - var(--body-padding) - var(--body-padding));
-  max-height: calc(100dvh - var(--body-padding) - var(--body-padding));
 }
 
 /* Scrollbar */
@@ -95,123 +168,71 @@ body {
   }
 }
 
-/* Default Loader */
-.spinner .spinner-blade {
-  position: absolute;
-  left: 0.4629em;
-  bottom: 0;
-  width: 0.074em;
-  height: 0.2777em;
-  border-radius: 0.0555em;
-  background-color: transparent;
-  -webkit-transform-origin: center -0.2222em;
-  -ms-transform-origin: center -0.2222em;
-  transform-origin: center -0.2222em;
-  animation: spinner-fade9234 1s infinite linear;
+table {
+  border-collapse: collapse;
+  width: max-content;
 }
 
-.spinner .spinner-blade:nth-child(1) {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
+th,
+td {
+  border: 1px solid #31343D;
+  text-align: left;
+  padding: 8px;
+  text-align: center
 }
 
-.spinner .spinner-blade:nth-child(2) {
-  -webkit-animation-delay: 0.083s;
-  animation-delay: 0.083s;
-  -webkit-transform: rotate(30deg);
-  -ms-transform: rotate(30deg);
-  transform: rotate(30deg);
+th {
+  background-color: #31343D;
+  text-transform: capitalize;
+  color: white;
 }
 
-.spinner .spinner-blade:nth-child(3) {
-  -webkit-animation-delay: 0.166s;
-  animation-delay: 0.166s;
-  -webkit-transform: rotate(60deg);
-  -ms-transform: rotate(60deg);
-  transform: rotate(60deg);
+h1 {
+  font-size: 1.6em;
+  color: var(--color-title)
 }
 
-.spinner .spinner-blade:nth-child(4) {
-  -webkit-animation-delay: 0.249s;
-  animation-delay: 0.249s;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+h2 {
+  font-size: 1.4em;
+  color: var(--color-title)
 }
 
-.spinner .spinner-blade:nth-child(5) {
-  -webkit-animation-delay: 0.332s;
-  animation-delay: 0.332s;
-  -webkit-transform: rotate(120deg);
-  -ms-transform: rotate(120deg);
-  transform: rotate(120deg);
+h3 {
+  font-size: 1.2em;
 }
 
-.spinner .spinner-blade:nth-child(6) {
-  -webkit-animation-delay: 0.415s;
-  animation-delay: 0.415s;
-  -webkit-transform: rotate(150deg);
-  -ms-transform: rotate(150deg);
-  transform: rotate(150deg);
+/* React Data Table */
+.rdt_TableCell div:first-child {
+  white-space: unset !important;
+  overflow: unset !important;
+  text-overflow: unset !important;
 }
 
-.spinner .spinner-blade:nth-child(7) {
-  -webkit-animation-delay: 0.498s;
-  animation-delay: 0.498s;
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+.rdt_Pagination>span:nth-child(3) {
+  margin-right: auto
 }
 
-.spinner .spinner-blade:nth-child(8) {
-  -webkit-animation-delay: 0.581s;
-  animation-delay: 0.581s;
-  -webkit-transform: rotate(210deg);
-  -ms-transform: rotate(210deg);
-  transform: rotate(210deg);
+.rdt_TableCol_Sortable :nth-child(1) {
+  white-space: break-spaces !important;
 }
 
-.spinner .spinner-blade:nth-child(9) {
-  -webkit-animation-delay: 0.664s;
-  animation-delay: 0.664s;
-  -webkit-transform: rotate(240deg);
-  -ms-transform: rotate(240deg);
-  transform: rotate(240deg);
+.rdt_TableCol_Sortable span.__rdt_custom_sort_icon__ {
+  content: "";
+  aspect-ratio: 8/17.67;
+  background-image: url('data:image/svg+xml;utf8,<svg width="8" height="18" viewBox="0 0 8 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.48" d="M4 0L7.4641 7.22736H0.535898L4 0Z" fill="%23677580"/><path opacity="0.48" d="M4 17.667L7.4641 10.4396H0.535898L4 17.667Z" fill="%23677580"/></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 7px;
+  height: auto;
+  margin-left: 8px;
+
 }
 
-.spinner .spinner-blade:nth-child(10) {
-  -webkit-animation-delay: 0.747s;
-  animation-delay: 0.747s;
-  -webkit-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
-  transform: rotate(270deg);
+/* Sorting icons */
+.rdt_TableCol_Sortable.cMQlVi span.__rdt_custom_sort_icon__ {
+  background-image: url('data:image/svg+xml;utf8,<svg width="8" height="18" viewBox="0 0 8 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.48" d="M4 0L7.4641 7.22736H0.535898L4 0Z" fill="black"/><path opacity="0.48" d="M4 17.667L7.4641 10.4396H0.535898L4 17.667Z" fill="%23677580"/></svg>');
 }
 
-.spinner .spinner-blade:nth-child(11) {
-  -webkit-animation-delay: 0.83s;
-  animation-delay: 0.83s;
-  -webkit-transform: rotate(300deg);
-  -ms-transform: rotate(300deg);
-  transform: rotate(300deg);
-}
-
-.spinner .spinner-blade:nth-child(12) {
-  -webkit-animation-delay: 0.913s;
-  animation-delay: 0.913s;
-  -webkit-transform: rotate(330deg);
-  -ms-transform: rotate(330deg);
-  transform: rotate(330deg);
-}
-
-@keyframes spinner-fade9234 {
-  0% {
-    background-color: currentColor;
-  }
-
-  100% {
-    background-color: transparent;
-  }
+.rdt_TableCol_Sortable.cMQlVi span.desc.__rdt_custom_sort_icon__ {
+  rotate: 180deg
 }

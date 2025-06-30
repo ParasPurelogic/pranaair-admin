@@ -11,13 +11,33 @@ export const conventions = {
 export const routes = {
     login: {
         id: "login",
+        name: "Login",
         pathname: "/login",
         url: `${domainName}/login`
     },
-    home: {
-        id: "home",
+    dashboard: {
+        id: "dashboard",
+        name: "Dashboard",
         pathname: "/",
         url: `${domainName}/`
+    },
+    customers: {
+        id: "customers",
+        name: "Customers",
+        pathname: "/customers",
+        url: `${domainName}/customers`
+    },
+    orders: {
+        id: "orders",
+        name: "Orders",
+        pathname: "/orders",
+        url: `${domainName}/orders`
+    },
+    products: {
+        id: "products",
+        name: "Products",
+        pathname: "/products",
+        url: `${domainName}/products`
     }
 }
 
